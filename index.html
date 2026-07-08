@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PageSpeed + Site Crawl</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <p class="eyebrow">GitHub Pages Edition</p>
+        <h1>PageSpeed and Site Crawl, without a backend.</h1>
+        <p class="intro">
+          Use your own Google PageSpeed Insights API key for batch analysis.
+          The crawl tool works on sites that allow browser fetch access from another origin.
+        </p>
+      </header>
+
+      <section class="panel api-panel">
+        <div class="panel-head">
+          <h2>API Key</h2>
+        </div>
+        <label for="apiKey">Google PageSpeed Insights API key</label>
+        <div class="api-row">
+          <input id="apiKey" type="password" placeholder="Paste your API key">
+          <button id="saveApiKeyBtn" type="button">Save Key</button>
+        </div>
+        <p class="hint">
+          The key is stored only in your browser using <code>localStorage</code>.
+        </p>
+      </section>
+
+      <nav class="tabbar" aria-label="Tools">
+        <button class="tab active" type="button" data-tab="pagespeed">PageSpeed</button>
+        <button class="tab" type="button" data-tab="crawl">Site Crawl</button>
+      </nav>
+
+      <section id="pagespeedTab" class="panel tab-panel active">
+        <div class="panel-head">
+          <h2>PageSpeed Batch Analysis</h2>
+        </div>
+        <label for="pagespeedUrls">URLs</label>
+        <textarea id="pagespeedUrls" placeholder="https://example.com&#10;https://www.example.com/products"></textarea>
+        <div class="action-row">
+          <button id="analyzeBtn" type="button">Analyze URLs</button>
+          <button id="copyPagespeedCsvBtn" type="button" class="secondary">Copy CSV</button>
+        </div>
+        <p class="hint">
+          Each URL uses two API calls: one for mobile and one for desktop.
+        </p>
+        <div id="pagespeedStatus" class="status" aria-live="polite"></div>
+        <div id="pagespeedResults"></div>
+      </section>
+
+      <section id="crawlTab" class="panel tab-panel">
+        <div class="panel-head">
+          <h2>Site Crawl</h2>
+        </div>
+        <label for="crawlUrl">Home page URL</label>
+        <input id="crawlUrl" type="url" placeholder="https://example.com">
+        <label for="crawlLimit">Max pages</label>
+        <input id="crawlLimit" type="number" min="1" max="100" value="25">
+        <div class="action-row">
+          <button id="crawlBtn" type="button">Crawl Site</button>
+          <button id="useCrawledUrlsBtn" type="button" class="secondary">Use in PageSpeed</button>
+        </div>
+        <p class="hint">
+          Best effort only. If the site blocks cross-origin browser fetches, crawling will fail on GitHub Pages.
+        </p>
+        <div id="crawlStatus" class="status" aria-live="polite"></div>
+        <div id="crawlResults"></div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
